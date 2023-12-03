@@ -2,7 +2,7 @@
 import os
 
 SYMBOLS = "! £ $ % ^ & * _ + - = # ~ @ / ? > < : ; | \\ [ ] { }".split()
-DIGITS = "1 2 3 4 5 6 7 8 9".split()
+DIGITS = "0 1 2 3 4 5 6 7 8 9".split()
 
 def findNumber(line, charStart):
     number = line[charStart]
@@ -30,9 +30,9 @@ def parseFile(contents: list[str]) -> int:
             if char not in SYMBOLS:
                 continue
             searchOptions = [coords for coords in [
-                [lineNo - 1 , charNo - 1], [lineNo - 1, charNo] , [lineNo - 1   , charNo + 1],
-                [lineNo     , charNo - 1], None                 , [lineNo       , charNo + 1],
-                [lineNo + 1 , charNo - 1], [lineNo + 1, charNo] , [lineNo + 1   , charNo + 1],
+                [lineNo - 1 , charNo - 1], [lineNo - 1  , charNo] , [lineNo - 1   , charNo + 1],
+                [lineNo     , charNo - 1], [lineNo      , charNo] , [lineNo       , charNo + 1],
+                [lineNo + 1 , charNo - 1], [lineNo + 1  , charNo] , [lineNo + 1   , charNo + 1],
             ] if coords is not None]
             
             match = {}
