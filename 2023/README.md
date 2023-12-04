@@ -14,3 +14,4 @@ For 2023, I'm going to do all the problems in Python.
 - [Day 2, Part 2](https://github.com/dominiccarrington/advent-of-code/tree/main/2023/2.2): 2 mins
 - [Day 3, Part 1](https://github.com/dominiccarrington/advent-of-code/tree/main/2023/3.1): 43 mins
 - [Day 3, Part 2](https://github.com/dominiccarrington/advent-of-code/tree/main/2023/3.2): 3 mins
+- [Day 4, Part 1](https://github.com/dominiccarrington/advent-of-code/tree/main/2023/4.1): 11 mins
