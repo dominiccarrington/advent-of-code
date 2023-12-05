@@ -10,8 +10,8 @@ def parseFile(fileName: str, searchNumber: int) -> int:
             parsedFiles[fileName] = [[int(n) for n in l.strip().split()] for l in f.readlines()]
         
     for map in parsedFiles[fileName]:
-        if searchNumber >= map[0] and searchNumber < map[0] + map[2]:
-            return searchNumber - map[0] + map[1]
+        if map[1] <= searchNumber and searchNumber < (map[1] + map[2]):
+            return searchNumber - map[1] + map[0]
     return searchNumber
 
 def humidityToLocation(humidity: int) -> int:
