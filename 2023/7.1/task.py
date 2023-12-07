@@ -23,7 +23,9 @@ def parseHand(hand: str) -> int:
         return 0
 
 def cardValue(c):
-    if c == "K":
+    if c == "A":
+        return 14
+    elif c == "K":
         return 13
     elif c == "Q":
         return 12
@@ -31,8 +33,6 @@ def cardValue(c):
         return 11
     elif c == "T":
         return 10
-    elif c == "A":
-        return 1
     else:
         return int(c)
 
@@ -40,22 +40,26 @@ def sorting_func(a):
     (type, hand, _) = a
     return int(str(type) + ''.join(["{0:0=2d}".format(cardValue(c)) for c in hand]))
 
-def main():
+def parseFile(lines: str):
     hands = []
 
+    for line in lines:
+        [hand, wager] = line.strip().split()
+        hands.append((parseHand(hand), hand, int(wager)))
+
+    # Low to High
+    hands.sort(key=sorting_func)
+    sigma = 0
+    for i in range(len(hands)):
+        (_, hand, wager) = hands[i]
+        sigma += (wager * (i + 1))
+    return sigma
+
+
+def main():
     dir = os.path.dirname(__file__)
     with open(dir + '/input.txt') as f:
-        for line in f:
-            [hand, wager] = line.strip().split()
-            hands.append((parseHand(hand), hand, int(wager)))
-
-        # Low to High
-        hands.sort(key=sorting_func)
-        sigma = 0
-        for i in range(len(hands)):
-            (_, _, wager) = hands[i]
-            sigma += (wager * i + 1)
-        print(sigma)
+        print(parseFile(f.readlines()))
 
 if __name__ == "__main__":
     main();
