@@ -20,3 +20,4 @@ For 2023, I'm going to do all the problems in Python.
 - [Day 5, Part 2](https://github.com/dominiccarrington/advent-of-code/tree/main/2023/5.2): Too Long (Code execution took 1 hr 25 mins)
 - [Day 6, Part 1](https://github.com/dominiccarrington/advent-of-code/tree/main/2023/6.1): 14 mins
 - [Day 6, Part 2](https://github.com/dominiccarrington/advent-of-code/tree/main/2023/6.2): 3 mins
+- [Day 7, Part 1](https://github.com/dominiccarrington/advent-of-code/tree/main/2023/7.1): 40 mins
