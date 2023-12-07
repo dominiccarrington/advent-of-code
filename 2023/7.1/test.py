@@ -16,6 +16,24 @@ QQQJA 483
             6440
         )
 
+class ParseHandTest(unittest.TestCase):
+    def test_JK949(self):
+        self.assertEqual(
+            task.parseHand("JK949"),
+            1
+        )
+
+class SortingTest(unittest.TestCase):
+    def test_1(self):
+        self.assertEqual(
+            task.sorting_func((2, "12345", None)),
+            "20102030405"
+        )
+    def test_2(self):
+        self.assertEqual(
+            task.sorting_func((6, "AKQJT", None)),
+            "61413121110"
+        )
 
 if __name__ == "__main__":
     unittest.main();

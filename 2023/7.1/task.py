@@ -7,6 +7,7 @@ def parseHand(hand: str) -> int:
         chars[c] = chars.get(c, 0) + 1
 
     keys = list(chars.keys())
+
     if len(keys) == 1 and chars[keys[0]] == 5:
         return 6
     elif len(chars.keys()) == 2 and (chars[keys[0]] == 4 or chars[keys[1]] == 4):
@@ -15,9 +16,9 @@ def parseHand(hand: str) -> int:
         return 4
     elif len(chars.keys()) == 3 and (any(chars[k] == 3 for k in keys)):
         return 3
-    elif len([chars[k] == 2 for k in keys]) == 2:
+    elif len(list(filter(None, [chars[k] == 2 for k in keys]))) == 2:
         return 2
-    elif len([chars[k] == 2 for k in keys]) == 1:
+    elif len(list(filter(None, [chars[k] == 2 for k in keys]))) == 1:
         return 1
     else:
         return 0
@@ -38,7 +39,7 @@ def cardValue(c):
 
 def sorting_func(a):
     (type, hand, _) = a
-    return int(str(type) + ''.join(["{0:0=2d}".format(cardValue(c)) for c in hand]))
+    return str(type) + ''.join(["{0:0=2d}".format(cardValue(c)) for c in hand])
 
 def parseFile(lines: str):
     hands = []
@@ -49,6 +50,7 @@ def parseFile(lines: str):
 
     # Low to High
     hands.sort(key=sorting_func)
+    
     sigma = 0
     for i in range(len(hands)):
         (_, hand, wager) = hands[i]
