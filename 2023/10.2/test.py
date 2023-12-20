@@ -70,7 +70,7 @@ L.L7LFJ|||||FJL7||LJ
 L7JLJL-JLJLJL--JLJ.L
 """.strip().split()
             ),
-            8
+            10
         )
 
 class PointsIntoTest(unittest.TestCase):
