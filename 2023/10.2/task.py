@@ -1,8 +1,23 @@
 # https://adventofcode.com/2023/day/10
 import os
-from tqdm import tqdm
+try:
+    from tqdm import tqdm
+except ImportError:
+    def tqdm(it):
+        return it
 
 TILES = ["|", "-", "L", "J", "7", "F"]
+
+def directionOfMovement(point1, point2):
+    match (point1[0] - point2[0], point1[1] - point2[1]):
+        case (0, 1):
+            return "W"
+        case (0, -1):
+            return "E"
+        case (1, 0):
+            return "N"
+        case (-1, 0):
+            return "S"
 
 def tilePoints(tile: str, location: (int, int)):
     if tile == "|":
@@ -43,34 +58,71 @@ def parseFile(lines: list[str]):
         raise ValueError("Invalid Input. Starting Location doesn't have exactly 2 connected tiles")
     
     points = [start, points_into_start[0]]
+    directions = [None, [directionOfMovement(points[0], points[1])]]
+
     while lines[points[-1][0]][points[-1][1]] != "S":
-        tile = lines[points[-1][0]][points[-1][1]]
-        locations = tilePoints(tile, points[-1])
-        new_location = locations[1] if points[-2] == locations[0] else locations[0]
+        current_location = points[-1]
+        tile = lines[current_location[0]][current_location[1]]
+        connected = tilePoints(tile, current_location)
+        new_location = connected[1] if points[-2] == connected[0] else connected[0]
+
+        direction = directionOfMovement(current_location, new_location)
+        if directions[-1][0] != direction:
+            directions[-1].append(direction)
+
+        directions.append([direction])
         points.append(new_location)
-    
+    points.pop(0)
+    directions.pop(0)
+
     max_y = max([p[0] for p in points])
     min_y = min([p[0] for p in points])
     max_x = max([p[1] for p in points])
     min_x = min([p[1] for p in points])
 
-    def oddEvenTest(point: tuple[int, int]):
-        count = 0
-        for ray in range(0, point[0]):
-            if (ray, point[1]) in points and lines[ray][point[1]] != "|":
-                count += 1
+    # https://en.wikipedia.org/wiki/Nonzero-rule
+    def windingNumber(point: tuple[int, int]):
+        windingNum = 0
+        for x in range(point[1], max_x + 1):
+            loc = (point[0], x)
+            if loc not in points:
+                continue
+            d = directions[points.index(loc)]
+            windingNum += 1 if "N" in d else (-1 if "S" in d else 0)
+            
+        return windingNum
 
-        return count
-    
-    inside = 0
+    inside = []
     for i in tqdm(range(min_y, max_y + 1)):
         for j in range(min_x, max_x + 1):
-            if (i, j) in points: # Skip points in loop
+            check = (i, j)
+            if check in points:
                 continue
+            if windingNumber(check) != 0:
+                inside.append(check)
 
-            if oddEvenTest((i, j)) % 2 == 1:
-                inside += 1
-    return inside
+    while True:
+        noUpdates = True
+        for p in inside:
+            connected = [(p[0] - 1, p[1]), (p[0], p[1] - 1), (p[0], p[1] + 1), (p[0] + 1, p[1])]
+            if not all([c in inside or c in points for c in connected]):
+                inside.remove(p)
+                noUpdates = False
+
+        if noUpdates:
+            break
+
+    for i in range(min_y, max_y + 1):
+        for j in range(min_x, max_x + 1):
+            p = (i, j)
+            if p in inside:
+                print("I", end="")
+            elif p in points:
+                print(lines[i][j], end="")
+            else:
+                print(".", end="")
+        print("\n", end="")
+    return len(inside)
 
 def main():
     dir = os.path.dirname(__file__)
