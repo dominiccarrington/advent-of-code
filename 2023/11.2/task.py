@@ -27,11 +27,9 @@ def parseFile(lines: list[str]):
         emptyRowsAbove = len([row for row in emptyRows if row < galaxy[0]])
         emptyColsToLeft = len([col for col in emptyCols if col < galaxy[1]])
         actualLocationsForGalaxies.append((
-            galaxy[0] + (emptyRowsAbove * 1_000_000),
-            galaxy[1] + (emptyColsToLeft * 1_000_000),
+            galaxy[0] + (emptyRowsAbove * 999_999),
+            galaxy[1] + (emptyColsToLeft * 999_999),
         ))
-
-    print(list(zip(galaxies, actualLocationsForGalaxies)))
 
     noOfGalaxies = len(actualLocationsForGalaxies)
     sigma = 0
