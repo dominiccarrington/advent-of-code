@@ -1,7 +1,5 @@
 # https://adventofcode.com/2023/day/11
 import os
-import networkx
-from tqdm import tqdm
 
 def expandUniverse(lines: list[str]):
     newLines = []
@@ -31,12 +29,15 @@ def parseFile(lines: list[str]):
             coords = (i, j)
             if universe[i][j] == '#':
                 galaxies.append(coords)
-
+    
+    noOfGalaxies = len(galaxies)
     sigma = 0
-    for i, j in tqdm([(i, j) for j in range(i+1, len(galaxies)) for i in range(len(galaxies)) ]):
+    for i in range(noOfGalaxies):
         fromGalaxy = galaxies[i]
-        toGalaxy = galaxies[j]
-        sigma += abs(fromGalaxy[0] - toGalaxy[0]) + abs(fromGalaxy[1] - toGalaxy[1])
+
+        for j in range(i+1, noOfGalaxies):
+            toGalaxy = galaxies[j]
+            sigma += abs(fromGalaxy[0] - toGalaxy[0]) + abs(fromGalaxy[1] - toGalaxy[1])
 
     return sigma
 
