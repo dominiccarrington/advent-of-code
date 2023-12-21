@@ -25,30 +25,18 @@ def expandUniverse(lines: list[str]):
 def parseFile(lines: list[str]):
     universe = expandUniverse(list([l.strip() for l in lines]))
 
-    graph = networkx.Graph()
-
     galaxies = []
     for i in range(len(universe)):
         for j in range(len(universe[i])):
             coords = (i, j)
             if universe[i][j] == '#':
                 galaxies.append(coords)
-            
-            neighbours = []
-            if coords[0] > 0:
-                neighbours.append((coords[0] - 1, coords[1]))
-            if coords[1] > 0:
-                neighbours.append((coords[0], coords[1] - 1))
-            if coords[0] < len(universe) - 1:
-                neighbours.append((coords[0] + 1, coords[1]))
-            if coords[1] < len(universe[i]) - 1:
-                neighbours.append((coords[0], coords[1] + 1))
-
-            graph.add_edges_from([(coords, n) for n in neighbours])
 
     sigma = 0
     for i, j in tqdm([(i, j) for j in range(i+1, len(galaxies)) for i in range(len(galaxies)) ]):
-        sigma += networkx.dijkstra_path_length(graph, galaxies[i], galaxies[j], lambda _1,_2,_3: 1)
+        fromGalaxy = galaxies[i]
+        toGalaxy = galaxies[j]
+        sigma += abs(fromGalaxy[0] - toGalaxy[0]) + abs(fromGalaxy[1] - toGalaxy[1])
 
     return sigma
 
