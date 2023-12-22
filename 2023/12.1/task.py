@@ -27,8 +27,8 @@ def parseLine(line: str):
             for i in range(len(rowGroups))
         ])
 
-    if isValid(row):
-        return 1
+    # if isValid(row):
+    #     return 1
 
     return len([option for option in expand([[".", "#"] if c =="?" else [c] for c in row]) if isValid(option)])
 
