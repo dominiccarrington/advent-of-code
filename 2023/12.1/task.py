@@ -35,7 +35,8 @@ def parseRow(row: str, groups: list[int], count = 0) -> int:
         groups[-1] -= 1
         return parseRow(row, groups, count)
     elif row[-1] == "?":
-        return parseRow(row[:-1] + ".", groups.copy(), count) + parseRow(row[:-1] + "#", groups.copy(), count)
+        t = parseRow(row[:-1] + ".", groups.copy(), count) if groups[-1] is None or groups[-1] == 0 else 0
+        return t + parseRow(row[:-1] + "#", groups.copy(), count)
 
 def parseLine(line: str):
     [row, groups] = line.split()
