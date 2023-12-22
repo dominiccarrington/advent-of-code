@@ -2,15 +2,40 @@
 import os
 import re
 
-def expand(positions):
-    expanded = [""]
-    for chars in positions:
-        newExpanded = []
-        for c in chars:
-            for e in expanded:
-                newExpanded.append(e+c)
-        expanded = newExpanded
-    return expanded
+def parseRow(row: str, groups: list[int], count = 0) -> int:
+    nonEmptyGroups = [g for g in groups if g is not None and g > 0]
+
+    requiredChars = max(0, sum(nonEmptyGroups) + len(nonEmptyGroups) - 1)
+    if requiredChars > len(row):
+        # Too few characters remaining in row
+        return count
+
+    if row == "":
+        return count + (1 if len(nonEmptyGroups) == 0 else 0)
+    
+    if len(nonEmptyGroups) == 0:
+        return count + (0 if "#" in row else 1)
+
+    if row[-1] == ".":
+        if groups[-1] is not None and groups[-1] > 0:
+            return count
+        
+        if groups[-1] is not None:
+            groups.pop()
+            groups.append(None)
+            row = row = re.sub(r"\.+", '.', row)
+        return parseRow(row[:-1], groups, count)
+    elif row[-1] == "#":
+        if groups[-1] is None:
+            groups.pop()
+        
+        if groups[-1] == 0:
+            return count
+        row = row[:-1]
+        groups[-1] -= 1
+        return parseRow(row, groups, count)
+    elif row[-1] == "?":
+        return parseRow(row[:-1] + ".", groups.copy(), count) + parseRow(row[:-1] + "#", groups.copy(), count)
 
 def parseLine(line: str):
     [row, groups] = line.split()
@@ -19,18 +44,14 @@ def parseLine(line: str):
     # We don't care how many . are between ?# groups
     row = re.sub(r"\.+", '.', row)
 
-    def isValid(row):
-        rowGroups = [r for r in row.split('.') if r != '']
-        # print(row, rowGroups, groups, sep=" || ")
-        return len(rowGroups) == len(groups) and all([
-            len(rowGroups[i]) == groups[i] or str(rowGroups[i]).count('#') == groups[i]
-            for i in range(len(rowGroups))
-        ])
+    if row.startswith("."):
+        row = row[1:]
+    if row.endswith("."):
+        row = row[:-1]
 
-    # if isValid(row):
-    #     return 1
-
-    return len([option for option in expand([[".", "#"] if c =="?" else [c] for c in row]) if isValid(option)])
+    groups.append(None)
+    options = parseRow(row, groups)
+    return options
 
 def parseFile(lines: list[str]):
     return sum([parseLine(line.strip()) for line in lines])
