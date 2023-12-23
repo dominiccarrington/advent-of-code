@@ -33,3 +33,4 @@ For 2023, I'm going to do all the problems in Python.
 - [Day 12, Part 1](https://github.com/dominiccarrington/advent-of-code/tree/main/2023/12.1)
 - [Day 12, Part 2](https://github.com/dominiccarrington/advent-of-code/tree/main/2023/12.2): **Not Complete**
 - [Day 13, Part 1](https://github.com/dominiccarrington/advent-of-code/tree/main/2023/13.1)
+- [Day 13, Part 2](https://github.com/dominiccarrington/advent-of-code/tree/main/2023/13.2)
