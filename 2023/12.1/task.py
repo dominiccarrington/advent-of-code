@@ -36,6 +36,15 @@ def parseRow(row: str, groups: list[int], count = 0) -> int:
         return parseRow(row, groups, count)
     elif row[-1] == "?":
         t = parseRow(row[:-1] + ".", groups.copy(), count) if groups[-1] is None or groups[-1] == 0 else 0
+
+        if groups[-1] is None and len(groups) >= 2:
+            nextGroupLen = groups[-2]
+            if len(row) >= nextGroupLen:
+                nextGroup = row[-nextGroupLen:]
+                if "." not in nextGroup and (len(row) == nextGroupLen or row[-nextGroupLen-1] == "." or row[-nextGroupLen-1] == "?"):
+                    groups.pop(-2)
+                    return t + parseRow(row[:-nextGroupLen-1], groups.copy(), count)
+
         return t + parseRow(row[:-1] + "#", groups.copy(), count)
 
 def parseLine(line: str):
