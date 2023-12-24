@@ -12,7 +12,7 @@ def hash(text: str) -> int:
     return currentValue
 
 def parseFile(input: str):
-    return sum([hash(i) for i in input.split(",")])
+    return sum([hash(i) for i in input.strip().split(",")])
 
 def main():
     dir = os.path.dirname(__file__)
