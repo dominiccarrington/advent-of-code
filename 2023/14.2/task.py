@@ -92,9 +92,9 @@ def parseFile(lines: list[str]):
     
     if repeatFoundAt is not None:
         (cycleStart, cycleEnd) = repeatFoundAt
-        cycle = previous[cycleStart:cycleEnd]
+        cycle = previous[cycleStart:cycleEnd+1]
 
-        lines = cycle[(CYCLES - cycleStart + 1) % len(cycle)].split("_")
+        lines = cycle[(CYCLES - cycleStart) % len(cycle)].split("_")
 
     return sum([len(lines) - i for i in range(len(lines)) for c in lines[i] if c == "O"])
 
