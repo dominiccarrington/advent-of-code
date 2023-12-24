@@ -95,7 +95,7 @@ def parseFile(lines: list[str]):
         cycle = previous[cycleStart:cycleEnd]
         print(cycle[0] == oneLine)
 
-        lines = cycle[CYCLES % len(cycle)].split("_")
+        lines = cycle[(CYCLES - cycleStart - 1) % len(cycle)].split("_")
 
     return sum([len(lines) - i for i in range(len(lines)) for c in lines[i] if c == "O"])
 
