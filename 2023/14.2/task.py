@@ -86,16 +86,16 @@ def parseFile(lines: list[str]):
         
         oneLine = "_".join(["".join(a) for a in lines])
         if oneLine in previous and repeatFoundAt is None:
-            repeatFoundAt = (previous.index(oneLine) + 1, i)
+            repeatFoundAt = (previous.index(oneLine), i)
             break
         previous.append(oneLine)
     
     if repeatFoundAt is not None:
         (cycleStart, cycleEnd) = repeatFoundAt
-        cycle = previous[cycleStart - 2:cycleEnd]
-        print(cycle[0] == cycle[-1])
+        cycle = previous[cycleStart:cycleEnd]
+        print(cycle[0] == oneLine)
 
-        lines = cycle[(CYCLES - cycleStart) % len(cycle)].split("_")
+        lines = cycle[CYCLES % len(cycle)].split("_")
 
     return sum([len(lines) - i for i in range(len(lines)) for c in lines[i] if c == "O"])
 
