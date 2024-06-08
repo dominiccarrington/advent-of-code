@@ -6,6 +6,10 @@ import os
 def download(year, day):
     base_url = f"https://adventofcode.com/{year}/day/{day}"
 
+    day = str(day)
+    if len(day) == 1:
+        day = "0" + day
+
     if not os.path.exists(f"{year}/{day}.1"):
         os.makedirs(f"{year}/{day}.1")
     if not os.path.exists(f"{year}/{day}.2"):
