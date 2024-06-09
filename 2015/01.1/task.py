@@ -2,10 +2,7 @@
 import os
 
 def parseFile(file_contents: str) -> int:
-    floor = 0
-    for c in file_contents:
-        floor += 1 if c == "(" else 0
-
+    floor = sum([{"(": 1, ")": -1}[c]for c in file_contents])
     return floor
 
 def main():
