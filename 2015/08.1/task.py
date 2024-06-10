@@ -19,7 +19,7 @@ def parseLine(line: str):
                 i += 1
         count += 1
         i += 1
-    return count
+    return len(line) - count
 
 def parseFile(lines: list[str]) -> int:
     return sum([parseLine(l.strip()) for l in lines])
