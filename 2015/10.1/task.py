@@ -25,7 +25,7 @@ def parseFile(start: str) -> int:
 def main():
     dir = os.path.dirname(__file__)
     with open(dir + '/input.txt') as f:
-        print(parseFile(f.read()))
+        print(parseFile(f.read().strip()))
 
 if __name__ == "__main__":
     main()
