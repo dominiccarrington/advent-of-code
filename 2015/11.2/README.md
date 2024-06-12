@@ -17,3 +17,5 @@
 </ul>
 <p>Given Santa's current password (your puzzle input), what should his <em>next password</em> be?</p>
 </article>
+<article class="day-desc"><h2 id="part2">--- Part Two ---</h2><p>Santa's password <span title="The corporate policy says your password expires after 12 seconds.  For security.">expired again</span>.  What's the next one?</p>
+</article>
