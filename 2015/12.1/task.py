@@ -3,7 +3,7 @@ import os
 import re
 
 def parseFile(pwd: str) -> str:
-    matches = re.findall(r"(\d+)", pwd)
+    matches = re.findall(r"(-?\d+)", pwd)
     return sum([int(m) for m in matches])
 
 def main():
