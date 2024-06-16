@@ -34,9 +34,12 @@ def parseFile(contents: str) -> int:
 
         non_visited_nodes = [n for (n, _) in graph[node].items() if n not in visited]
         if len(non_visited_nodes) > 0:
-            return max([dfs(n, weight + graph[node][n], [v for v in visited]) for n in non_visited_nodes])
+            return max([
+                dfs(n, weight + graph[node][n] + graph[n][node], [v for v in visited]) 
+                for n in non_visited_nodes
+            ])
         elif visited[0] in graph[node]:
-            return weight + graph[node][visited[0]]
+            return weight + graph[node][visited[0]] + graph[visited[0]][node]
         else:
             return -math.inf
 
