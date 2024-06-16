@@ -52,10 +52,11 @@ def parseFile(contents: str) -> int:
             reindeer,
             key=lambda r : r.distance_travelled
         )
-        max_points = ordered[0].points
+        max_distance = ordered[0].distance_travelled
         i = 0
-        while ordered[i].points == max_points:
+        while ordered[i].distance_travelled == max_distance:
             ordered[i].points += 1
+            i += 1
     
     return max([r.points for r in reindeer])
 
