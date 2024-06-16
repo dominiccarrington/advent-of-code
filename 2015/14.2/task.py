@@ -50,7 +50,8 @@ def parseFile(contents: str) -> int:
         
         ordered = sorted(
             reindeer,
-            key=lambda r : r.distance_travelled
+            key=lambda r : r.distance_travelled,
+            reverse=True
         )
         max_distance = ordered[0].distance_travelled
         i = 0
