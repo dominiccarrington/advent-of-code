@@ -5,29 +5,6 @@ import math
 
 LENGTH_OF_RACE = 2503
 
-class Reindeer:
-    is_flying = True
-    duration_remaining = 0
-
-    distance_travelled = 0
-
-    def __init__(self, fly_speed, fly_duration, rest_duration):
-        self.fly_speed = fly_speed
-        self.fly_duration = fly_duration
-        self.rest_duration = rest_duration
-
-        self.duration_remaining = self.fly_duration
-
-    def tick(self):
-        if self.is_flying:
-            self.distance_travelled += self.fly_speed
-            
-        self.duration_remaining -= 1
-        if self.duration_remaining == 0:
-            self.is_flying = not self.is_flying
-            self.duration_remaining = self.fly_duration if self.is_flying else self.rest_duration
-
-
 def parseLine(line: str):
     matches = re.match(r"(\w+) can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.", line)
     if matches is None:
@@ -38,16 +15,20 @@ def parseLine(line: str):
     fly_duration = int(matches.group(3))
     rest_duration = int(matches.group(4))
 
-    return (name, Reindeer(fly_speed, fly_duration, rest_duration))
+    full_distance = fly_speed * fly_duration
+    full_duration = fly_duration + rest_duration
+
+    number_of_full_distances = math.floor(LENGTH_OF_RACE / full_duration)
+    full_blocks_travelled = number_of_full_distances * full_distance
+
+    overtime = LENGTH_OF_RACE - (number_of_full_distances * full_duration)
+    extra_movement_time = min(fly_duration, overtime)
+    extra_movement = extra_movement_time * fly_speed
+
+    return full_blocks_travelled + extra_movement
 
 def parseFile(contents: str) -> int:
-    reindeer = [parseLine(line)[1] for line in contents.splitlines()]
-    
-    for _ in range(LENGTH_OF_RACE):
-        for r in reindeer:
-            r.tick()
-    
-    return max([r.distance_travelled for r in reindeer])
+    return max([parseLine(line) for line in contents.splitlines()])
 
 def main():
     dir = os.path.dirname(__file__)
