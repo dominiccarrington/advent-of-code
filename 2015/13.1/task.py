@@ -1,9 +1,9 @@
 # https://adventofcode.com/2015/day/11
 import os
 import re
-import networkx as nx
+import math
 
-type AdjacencyList = dict[str, list[(str, int)]];
+type AdjacencyList = dict[str, dict[str, int]];
 
 def parseLine(line: str):
     matches = re.match(r"(\w+) would (lose|gain) (\d+) happiness units by sitting next to (\w+)", line)
@@ -19,29 +19,31 @@ def parseLine(line: str):
     return (person_a, person_b, (1 if modifier == "gain" else -1) * int(value))
 
 def parseFile(contents: str) -> int:
-    graph = nx.DiGraph()
-    graph.add_weighted_edges_from([parseLine(line) for line in contents.splitlines()])
-    cycles = nx.recursive_simple_cycles(graph)
-    full_cycles = [c for c in cycles if len(c) == len(graph.nodes)]
-    
-    maximum = 0
-    for cycle in full_cycles:
-        weight_of_cycle = 0
-        for i in range(1, len(cycle)):
-            a = cycle[i-1]
-            b = cycle[i]
-            w = graph[a][b]['weight']
-            weight_of_cycle += w
-        
-        a = cycle[len(cycle) - 1]
-        b = cycle[0]
-        w = graph[a][b]['weight']
-        weight_of_cycle += w
-        
-        maximum = max(weight_of_cycle, maximum)
-    return maximum
+    graph: AdjacencyList = {}
+    edges = [parseLine(line) for line in contents.splitlines()]
+    for (a, b, w) in edges:
+        if a not in graph:
+            graph[a] = {}
+        if b not in graph:
+            graph[b] = {}
+        graph[a][b] = w
+
+    nodes = graph.keys()
+    def dfs(node, weight = 0, visited: list[str] = []):
+        visited.append(node)
+
+        non_visited_nodes = [n for (n, _) in graph[node].items() if n not in visited]
+        if len(non_visited_nodes) > 0:
+            return max([dfs(n, weight + graph[node][n], visited) for n in non_visited_nodes])
+        elif visited[0] in graph[node]:
+            return weight + graph[node][visited[0]]
+        else:
+            return -math.inf
+
+    return max([dfs(node) for node in nodes])
 
 def main():
+
     dir = os.path.dirname(__file__)
     with open(dir + '/input.txt') as f:
         print(parseFile(f.read().strip()))
