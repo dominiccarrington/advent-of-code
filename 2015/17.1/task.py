@@ -11,12 +11,15 @@ def solve(containers: list[int], amount_remaining: int):
         container = containers[i]
         if container == amount_remaining:
             count += 1
+        elif amount_remaining - container < 0:
+            break
         elif amount_remaining - container > 0:
             count += solve(containers[i+1:], amount_remaining - container)
     return count
 
 def parseFile(contents: str) -> int:
     containers = [int(size) for size in contents.splitlines()]
+    containers.sort()
     return solve(containers, AMOUNT_OF_EGGNOG)
 
 def main():
