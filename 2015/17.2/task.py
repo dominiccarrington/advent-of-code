@@ -4,30 +4,35 @@ import re
 import math
 
 AMOUNT_OF_EGGNOG = 150
-options = []
-def solve(containers: list[int], amount_remaining: int, path: list[int] = []):
-    count = 0
+
+def solve(containers: list[int], amount_remaining: int, depth = 1):
+    ret = (math.inf, 0)
     for i in range(0, len(containers)):
-        container = containers[i]
-        if container == amount_remaining:
-            ps = [p for p in path]
-            ps.append(container)
-            options.append(ps)
-            count += 1
-        elif amount_remaining - container < 0:
+        container_size = containers[i]
+        if amount_remaining < container_size:
+            # The array is sorted therefore all containers
+            # past this point are also going to fail at this point
             break
-        elif amount_remaining - container > 0:
-            path.append(container)
-            count += solve(containers[i+1:], amount_remaining - container, path)
-            path.pop()
-    return count
+        elif amount_remaining == container_size:
+            if depth == ret[0]:
+                ret = (ret[0], ret[1] + 1)
+            elif depth < ret[0]:
+                ret = (depth, 1)
+        elif amount_remaining > container_size:
+            (length, count) = solve(containers[i+1:], amount_remaining - container_size, depth + 1)
+            if length == ret[0]:
+                ret = (ret[0], ret[1] + count)
+            elif length < ret[0]:
+                ret = (length, count)
+    return ret
 
 def parseFile(contents: str) -> int:
     containers = [int(size) for size in contents.splitlines()]
     containers.sort()
-    solve(containers, AMOUNT_OF_EGGNOG)
-    min_length = min([len(option) for option in options])
-    return len([option for option in options if len(option) == min_length])
+
+    
+    (_, count) = solve(containers, AMOUNT_OF_EGGNOG)
+    return count
 
 def main():
     dir = os.path.dirname(__file__)
