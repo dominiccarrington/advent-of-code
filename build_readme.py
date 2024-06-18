@@ -1,8 +1,10 @@
 from git import Repo
 import re
+from os.path import exists as file_exists
+from bs4 import BeautifulSoup
 
 repo = Repo()
-commits = [c for c in repo.iter_commits('main')]
+commits = [c for c in repo.iter_commits()]
 
 pattern = re.compile(r"\[(\d{4})\]\[(\d{1,2}).(1|2)\] (Complete|Correct)")
 commits_with_puzzle_specified = filter(lambda s: s is not None, [pattern.match(c.message) for c in commits])
@@ -15,15 +17,6 @@ for matches in commits_with_puzzle_specified:
     part = int(matches.group(3))
 
     years[year][puzzle][part - 1] = True
-
-README = """
-# Advent of Code
-
-> [https://adventofcode.com/](https://adventofcode.com/)
-
-| Year          | Completed Tasks | Completed Part 1 | Completed Part 2 |
-| ------------- | --------------- | ---------------- | ---------------- |
-"""
 
 def create_top_level_table_line(year):
     column_len = [len("Completed Tasks"), len("Completed Part 1"), len("Completed Part 2")]
@@ -43,7 +36,57 @@ def create_top_level_table_line(year):
 
     return year_line
 
+def write_year_readme(year):
+    if not file_exists(str(year)):
+        print("Skipped " + str(year))
+        return
+    
+    days = years[year]
+
+    def generate_link_for_day(day, task):
+        ret = ":heavy_check_mark:" if days[day][task-1] else ":x:"
+        day_str = str(day) if day >= 10 else f"0{day}"
+
+        if file_exists(f"{year}/{day_str}.{task}"):
+            ret += f" [(link)](/{year}/{day_str}.{task})"
+
+        return ret
+    README = f"""
+# Advent of Code {year}
+
+> [https://adventofcode.com/](https://adventofcode.com/)
+
+| Task | Part 1 | Part 2 |
+| ---- | ------ | ------ |
+"""
+    for i in range(1, 26):
+        task_str = ""
+        i_str = str(i) if i >= 10 else f"0{i}"
+        if file_exists(f"{year}/{i_str}.1/README.md"):
+            with open(f"{year}/{i_str}.1/README.md", 'r') as f:
+                soup = BeautifulSoup(f.read(), "html.parser")
+                task_str = str(soup.article.h2.contents[0]).strip(' -')
+        else:
+            task_str = f"Day {i}"
+        
+        README += f"| {task_str} | {generate_link_for_day(i, 1)} | {generate_link_for_day(i, 2)} |\n"
+    
+    with open(f"{year}/README.md", 'w') as f:
+        f.write(README.strip())
+    
+    repo.index.add(f"{year}/README.md")
+
+README = """
+# Advent of Code
+
+> [https://adventofcode.com/](https://adventofcode.com/)
+
+| Year          | Completed Tasks | Completed Part 1 | Completed Part 2 |
+| ------------- | --------------- | ---------------- | ---------------- |
+"""
+
 for year in years.keys():
+    write_year_readme(year)
     README += create_top_level_table_line(year)
 
 with open('README.md', 'w') as f:
