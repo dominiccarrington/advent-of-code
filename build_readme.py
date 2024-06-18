@@ -2,7 +2,6 @@ from git import Repo
 import re
 
 repo = Repo()
-
 commits = [c for c in repo.iter_commits('main')]
 
 pattern = re.compile(r"\[(\d{4})\]\[(\d{1,2}).(1|2)\] (Complete|Correct)")
@@ -26,7 +25,7 @@ README = """
 | ------------- | --------------- | ---------------- | ---------------- |
 """
 
-for year in years.keys():
+def create_top_level_table_line(year):
     column_len = [len("Completed Tasks"), len("Completed Part 1"), len("Completed Part 2")]
 
     part1_completed = len([day for day in years[year].values() if day[0]])
@@ -41,7 +40,11 @@ for year in years.keys():
     part2_completed_str += " " * (column_len[2] - len(part2_completed_str))
 
     year_line = f"| [{year}](/{year}) | {parts_completed_str} | {part1_completed_str} | {part2_completed_str} |\n"
-    README += year_line
+
+    return year_line
+
+for year in years.keys():
+    README += create_top_level_table_line(year)
 
 with open('README.md', 'w') as f:
     f.write(README.strip())
