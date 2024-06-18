@@ -19,20 +19,15 @@ for matches in commits_with_puzzle_specified:
     years[year][puzzle][part - 1] = True
 
 def create_top_level_table_line(year):
-    column_len = [len("Completed Tasks"), len("Completed Part 1"), len("Completed Part 2")]
-
     part1_completed = len([day for day in years[year].values() if day[0]])
     part2_completed = len([day for day in years[year].values() if day[1]])
     parts_completed = part1_completed + part2_completed
 
     parts_completed_str = f"{parts_completed}/50"
-    parts_completed_str += " " * (column_len[0] - len(parts_completed_str))
     part1_completed_str = f"{part1_completed}/25"
-    part1_completed_str += " " * (column_len[1] - len(part1_completed_str))
     part2_completed_str = f"{part2_completed}/25"
-    part2_completed_str += " " * (column_len[2] - len(part2_completed_str))
 
-    year_line = f"| [{year}](/{year}) | {parts_completed_str} | {part1_completed_str} | {part2_completed_str} |\n"
+    year_line = f"| [{year}](/{year}/README.md) | {parts_completed_str} | {part1_completed_str} | {part2_completed_str} |\n"
 
     return year_line
 
