@@ -10,20 +10,24 @@ def download(year, day):
     if len(day) == 1:
         day = "0" + day
 
-    if not os.path.exists(f"{year}/{day}.1"):
-        os.makedirs(f"{year}/{day}.1")
-    if not os.path.exists(f"{year}/{day}.2"):
-        os.makedirs(f"{year}/{day}.2")
-
     page = requests.get(base_url)
     soup = BeautifulSoup(page.content, "html.parser")
-    readme = str(soup.find(class_='day-desc'))
+    descriptions = soup.find_all(class_='day-desc')
 
+    if not os.path.exists(f"{year}/{day}.1"):
+        os.makedirs(f"{year}/{day}.1")
+        
+    if len(descriptions) == 2:
+        if not os.path.exists(f"{year}/{day}.2"):
+            os.makedirs(f"{year}/{day}.2")
+
+    readme = str(descriptions[0])
     with open(f"{year}/{day}.1/README.md", 'w') as file:
         file.write(readme)
 
-    with open(f"{year}/{day}.2/README.md", 'w') as file:
-        file.write(readme)
+    if len(descriptions) == 2:
+        with open(f"{year}/{day}.2/README.md", 'w') as file:
+            file.write(str(descriptions[0]) + "\n" + str(descriptions[1]))
 
     with open( 'session.txt', 'r' ) as session:
         s = requests.Session()
@@ -33,8 +37,9 @@ def download(year, day):
         with open(f"{year}/{day}.1/input.txt", 'wb') as file:
             file.write(input)
 
-        with open(f"{year}/{day}.2/input.txt", 'wb') as file:
-            file.write(input)
+        if len(descriptions) == 2:
+            with open(f"{year}/{day}.2/input.txt", 'wb') as file:
+                file.write(input)
 
 def main():
     if len(sys.argv) < 3:
