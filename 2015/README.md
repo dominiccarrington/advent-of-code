@@ -9,7 +9,7 @@
 | Day 3: Perfectly Spherical Houses in a Vacuum | :heavy_check_mark: [(link)](/2015/03.1) | :heavy_check_mark: [(link)](/2015/03.2) |
 | Day 4: The Ideal Stocking Stuffer | :heavy_check_mark: [(link)](/2015/04.1) | :heavy_check_mark: [(link)](/2015/04.2) |
 | Day 5: Doesn't He Have Intern-Elves For This? | :heavy_check_mark: [(link)](/2015/05.1) | :heavy_check_mark: [(link)](/2015/05.2) |
-| Day 6: Probably a Fire Hazard | :x: [(link)](/2015/06.1) | :x: [(link)](/2015/06.2) |
+| Day 6: Probably a Fire Hazard | :heavy_check_mark: [(link)](/2015/06.1) | :heavy_check_mark: [(link)](/2015/06.2) |
 | Day 7: Some Assembly Required | :heavy_check_mark: [(link)](/2015/07.1) | :heavy_check_mark: [(link)](/2015/07.2) |
 | Day 8: Matchsticks | :heavy_check_mark: [(link)](/2015/08.1) | :heavy_check_mark: [(link)](/2015/08.2) |
 | Day 9: All in a Single Night | :heavy_check_mark: [(link)](/2015/09.1) | :heavy_check_mark: [(link)](/2015/09.2) |
