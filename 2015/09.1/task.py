@@ -18,6 +18,7 @@ def parseLine(graph, line):
         graph[to_node] = {}
     
     graph[from_node][to_node] = weight
+    graph[to_node][from_node] = weight
 
 def parseFile(contents: str) -> int:
     graph = {}
@@ -29,8 +30,10 @@ def parseFile(contents: str) -> int:
             return weight
 
         min_weight = math.inf
-        for n in graph[path[-1]]:
-            copy = path[:]  
+        out_nodes = graph[path[-1]].keys()
+        out_nodes_not_reached = [n for n in out_nodes if n not in path]
+        for n in out_nodes_not_reached:
+            copy = [p for p in path]
             copy.append(n)
             min_weight = min(min_weight, dfs(copy, weight + graph[path[-1]][n]))
         return min_weight
@@ -39,8 +42,6 @@ def parseFile(contents: str) -> int:
     for n in graph:
         min_weight = min(dfs([n]), min_weight)
     return min_weight
-
-    return 0
 
 def main():
     dir = os.path.dirname(__file__)
