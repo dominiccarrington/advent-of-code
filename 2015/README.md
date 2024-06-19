@@ -12,7 +12,7 @@
 | Day 6: Probably a Fire Hazard | :x: [(link)](/2015/06.1) | :x: [(link)](/2015/06.2) |
 | Day 7: Some Assembly Required | :heavy_check_mark: [(link)](/2015/07.1) | :heavy_check_mark: [(link)](/2015/07.2) |
 | Day 8: Matchsticks | :heavy_check_mark: [(link)](/2015/08.1) | :heavy_check_mark: [(link)](/2015/08.2) |
-| Day 9: All in a Single Night | :x: [(link)](/2015/09.1) | :x: [(link)](/2015/09.2) |
+| Day 9: All in a Single Night | :heavy_check_mark: [(link)](/2015/09.1) | :heavy_check_mark: [(link)](/2015/09.2) |
 | Day 10: Elves Look, Elves Say | :heavy_check_mark: [(link)](/2015/10.1) | :heavy_check_mark: [(link)](/2015/10.2) |
 | Day 11: Corporate Policy | :heavy_check_mark: [(link)](/2015/11.1) | :heavy_check_mark: [(link)](/2015/11.2) |
 | Day 12: JSAbacusFramework.io | :heavy_check_mark: [(link)](/2015/12.1) | :heavy_check_mark: [(link)](/2015/12.2) |
