@@ -14,11 +14,12 @@ def parseFile(contents: str) -> int:
     weight_of_each_compartment = presents_weight_sum / 3
     prefix: dict[int, list[list[int]]] = {}
     min_length = math.inf
+    remaining_weight = sum(presents_weight)
     for i in range(0, len(presents_weight)):
         present_weight = presents_weight[i]
         if 0 in prefix:
             min_length = min(len(l) for l in prefix[0])
-        keys = list(prefix.keys())
+        keys = [l for l in prefix.keys() if l <= remaining_weight]
 
         for n in keys:
             amount_remaining = n - present_weight
@@ -37,6 +38,7 @@ def parseFile(contents: str) -> int:
             prefix[amount_remaining] = [[present_weight]]
         else:
             prefix[amount_remaining].extend([[present_weight]])
+        remaining_weight -= present_weight
     
     if 0 not in prefix:
         return -1
