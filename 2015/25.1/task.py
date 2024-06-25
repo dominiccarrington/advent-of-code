@@ -5,27 +5,30 @@ import math
 import itertools
 from functools import reduce
 
-def sequence(n) -> int:
+def sequence(n: int) -> int:
     return int((math.pow(n, 2) - n + 2) / 2)
+
+def calculateValue(row: int, column: int) -> int:
+    nth_code = sequence(row) + column - 1
+    
+    code = 20151125
+    for _ in range(1, nth_code):
+        code = (code * 252533) % 33554393
+
+    return code
 
 def parseFile(contents: str) -> int:
     matches = re.match(
-        r"To continue, please consult the code grid in the manual\.  Enter the code at row (\d+), column (\d+).",
+        r"To continue, please consult the code grid in the manual\.  Enter the code at row (\d+), column (\d+)\.",
         contents
     )
 
     if matches is None:
         raise ValueError
+    
     row = int(matches.group(1))
     column = int(matches.group(2))
-    
-    nth_code = sequence(row) + column
-    
-    code = 20151125
-    for _ in range(0, nth_code):
-        code = (code * 252533) % 33554393
-
-    return code
+    return calculateValue(row, column)
 
 def main():
     dir = os.path.dirname(__file__)

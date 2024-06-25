@@ -9,7 +9,16 @@ class SequenceTestSuite(unittest.TestCase):
         )
 
 class TestSuite(unittest.TestCase):
-    pass
+    def test_2_1(self):
+        self.assertEqual(
+            31916031,
+            task.calculateValue(2, 1)
+        )
+    def test_5_1(self):
+        self.assertEqual(
+            77061,
+            task.calculateValue(5, 1)
+        )
 
 if __name__ == '__main__':
     unittest.main()
