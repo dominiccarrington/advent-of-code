@@ -27,5 +27,5 @@
 | Day 21: RPG Simulator 20XX | :x: [(link)](/2015/21.1) | :x: [(link)](/2015/21.2) |
 | Day 22: Wizard Simulator 20XX | :x: [(link)](/2015/22.1) | :x: [(link)](/2015/22.2) |
 | Day 23: Opening the Turing Lock | :heavy_check_mark: [(link)](/2015/23.1) | :heavy_check_mark: [(link)](/2015/23.2) |
-| Day 24: It Hangs in the Balance | :x: [(link)](/2015/24.1) | :x: [(link)](/2015/24.2) |
-| Day 25: Let It Snow | :x: [(link)](/2015/25.1) | :x: [(link)](/2015/25.2) |
+| Day 24: It Hangs in the Balance | :heavy_check_mark: [(link)](/2015/24.1) | :heavy_check_mark: [(link)](/2015/24.2) |
+| Day 25: Let It Snow | :heavy_check_mark: [(link)](/2015/25.1) | :x: [(link)](/2015/25.2) |
