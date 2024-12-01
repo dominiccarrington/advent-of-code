@@ -4,7 +4,7 @@
 
 | Task | Part 1 | Part 2 |
 | ---- | ------ | ------ |
-| [Day 1: Historian Hysteria](https://adventofcode.com/2024/day/1) | :x: [(link)](/2024/01.1) | :x: |
+| [Day 1: Historian Hysteria](https://adventofcode.com/2024/day/1) | :heavy_check_mark: [(link)](/2024/01.1) | :heavy_check_mark: [(link)](/2024/01.2) |
 | [Day 2](https://adventofcode.com/2024/day/2) | :x: | :x: |
 | [Day 3](https://adventofcode.com/2024/day/3) | :x: | :x: |
 | [Day 4](https://adventofcode.com/2024/day/4) | :x: | :x: |
