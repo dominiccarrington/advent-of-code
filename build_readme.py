@@ -9,7 +9,7 @@ commits = [c for c in repo.iter_commits()]
 pattern = re.compile(r"\[(\d{4})\]\[(\d{1,2}).(1|2)\] (Complete|Correct)")
 commits_with_puzzle_specified = filter(lambda s: s is not None, [pattern.match(c.message) for c in commits])
 
-years = {year: {day: [False, False] for day in range(1, 26)} for year in range(2015, 2024)}
+years = {year: {day: [False, False] for day in range(1, 26)} for year in range(2015, 2025)}
 
 for matches in commits_with_puzzle_specified:
     year = int(matches.group(1))
@@ -49,7 +49,7 @@ def write_year_readme(year):
     README = f"""
 # Advent of Code {year}
 
-> [https://adventofcode.com/](https://adventofcode.com/)
+> [https://adventofcode.com/{year}/](https://adventofcode.com/{year}/)
 
 | Task | Part 1 | Part 2 |
 | ---- | ------ | ------ |

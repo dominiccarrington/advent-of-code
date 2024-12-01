@@ -22,11 +22,11 @@ def download(year, day):
             os.makedirs(f"{year}/{day}.2")
 
     readme = str(descriptions[0])
-    with open(f"{year}/{day}.1/README.md", 'w') as file:
+    with open(f"{year}/{day}.1/task.md", 'w') as file:
         file.write(readme)
 
     if len(descriptions) == 2:
-        with open(f"{year}/{day}.2/README.md", 'w') as file:
+        with open(f"{year}/{day}.2/task.md", 'w') as file:
             file.write(str(descriptions[0]) + "\n" + str(descriptions[1]))
 
     with open( 'session.txt', 'r' ) as session:
