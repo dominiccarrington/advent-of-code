@@ -10,28 +10,28 @@ def download(year, day):
     if len(day) == 1:
         day = "0" + day
 
-    page = requests.get(base_url)
-    soup = BeautifulSoup(page.content, "html.parser")
-    descriptions = soup.find_all(class_='day-desc')
-
-    if not os.path.exists(f"{year}/{day}.1"):
-        os.makedirs(f"{year}/{day}.1")
-        
-    if len(descriptions) == 2:
-        if not os.path.exists(f"{year}/{day}.2"):
-            os.makedirs(f"{year}/{day}.2")
-
-    readme = str(descriptions[0])
-    with open(f"{year}/{day}.1/task.md", 'w') as file:
-        file.write(readme)
-
-    if len(descriptions) == 2:
-        with open(f"{year}/{day}.2/task.md", 'w') as file:
-            file.write(str(descriptions[0]) + "\n" + str(descriptions[1]))
-
     with open( 'session.txt', 'r' ) as session:
         s = requests.Session()
         s.cookies.set("session", session.read())
+        page = s.get(base_url)
+        soup = BeautifulSoup(page.content, "html.parser")
+        descriptions = soup.find_all(class_='day-desc')
+
+        if not os.path.exists(f"{year}/{day}.1"):
+            os.makedirs(f"{year}/{day}.1")
+            
+        if len(descriptions) == 2:
+            if not os.path.exists(f"{year}/{day}.2"):
+                os.makedirs(f"{year}/{day}.2")
+
+        readme = str(descriptions[0])
+        with open(f"{year}/{day}.1/task.md", 'w') as file:
+            file.write(readme)
+
+        if len(descriptions) == 2:
+            with open(f"{year}/{day}.2/task.md", 'w') as file:
+                file.write(str(descriptions[0]) + "\n" + str(descriptions[1]))
+        
         input = s.get(base_url + "/input").content
 
         with open(f"{year}/{day}.1/input.txt", 'wb') as file:
