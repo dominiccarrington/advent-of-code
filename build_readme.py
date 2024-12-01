@@ -57,14 +57,14 @@ def write_year_readme(year):
     for i in range(1, 26):
         task_str = ""
         i_str = str(i) if i >= 10 else f"0{i}"
-        if file_exists(f"{year}/{i_str}.1/README.md"):
-            with open(f"{year}/{i_str}.1/README.md", 'r') as f:
+        if file_exists(f"{year}/{i_str}.1/task.md"):
+            with open(f"{year}/{i_str}.1/task.md", 'r') as f:
                 soup = BeautifulSoup(f.read(), "html.parser")
                 task_str = str(soup.article.h2.contents[0]).strip(' -')
         else:
             task_str = f"Day {i}"
         
-        README += f"| {task_str} | {generate_link_for_day(i, 1)} | {generate_link_for_day(i, 2)} |\n"
+        README += f"| [{task_str}](https://adventofcode.com/{year}/day/{i}) | {generate_link_for_day(i, 1)} | {generate_link_for_day(i, 2)} |\n"
     
     with open(f"{year}/README.md", 'w') as f:
         f.write(README.strip())
