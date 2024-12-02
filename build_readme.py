@@ -6,21 +6,28 @@ from bs4 import BeautifulSoup
 repo = Repo()
 commits = [c for c in repo.iter_commits()]
 
-pattern = re.compile(r"\[(\d{4})\]\[(\d{1,2}).(1|2)\] (Complete|Correct)")
+pattern = re.compile(r"\[(\d{4})\]\[(\d{1,2}).(1|2)\] (Complete|Correct|Brute Force)")
 commits_with_puzzle_specified = filter(lambda s: s is not None, [pattern.match(c.message) for c in commits])
 
-years = {year: {day: [False, False] for day in range(1, 26)} for year in range(2015, 2025)}
+years = {year: {day: [':x:', ':x:'] for day in range(1, 26)} for year in range(2015, 2025)}
 
 for matches in commits_with_puzzle_specified:
     year = int(matches.group(1))
     puzzle = int(matches.group(2))
     part = int(matches.group(3))
+    status = matches.group(4)
 
-    years[year][puzzle][part - 1] = True
+    complete = ':x:'
+    if status == 'Complete' or status == 'Correct':
+        complete = ':heavy_check_mark:'
+    elif status == 'Brute Force':
+        complete = ':robot:'
+
+    years[year][puzzle][part - 1] = complete
 
 def create_top_level_table_line(year):
-    part1_completed = len([day for day in years[year].values() if day[0]])
-    part2_completed = len([day for day in years[year].values() if day[1]])
+    part1_completed = len([day for day in years[year].values() if day[0] == ':heavy_check_mark:'])
+    part2_completed = len([day for day in years[year].values() if day[1] == ':heavy_check_mark:'])
     parts_completed = part1_completed + part2_completed
 
     parts_completed_str = f"{parts_completed}/50"
@@ -39,7 +46,7 @@ def write_year_readme(year):
     days = years[year]
 
     def generate_link_for_day(day, task):
-        ret = ":heavy_check_mark:" if days[day][task-1] else ":x:"
+        ret = days[day][task-1]
         day_str = str(day) if day >= 10 else f"0{day}"
 
         if file_exists(f"{year}/{day_str}.{task}"):
