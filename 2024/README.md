@@ -8,7 +8,7 @@
 | [Day 2: Red-Nosed Reports](https://adventofcode.com/2024/day/2) | :heavy_check_mark: [(link)](/2024/02.1) | :robot: [(link)](/2024/02.2) |
 | [Day 3: Mull It Over](https://adventofcode.com/2024/day/3) | :heavy_check_mark: [(link)](/2024/03.1) | :heavy_check_mark: [(link)](/2024/03.2) |
 | [Day 4: Ceres Search](https://adventofcode.com/2024/day/4) | :heavy_check_mark: [(link)](/2024/04.1) | :heavy_check_mark: [(link)](/2024/04.2) |
-| [Day 5](https://adventofcode.com/2024/day/5) | :x: | :x: |
+| [Day 5: Print Queue](https://adventofcode.com/2024/day/5) | :heavy_check_mark: [(link)](/2024/05.1) | :heavy_check_mark: [(link)](/2024/05.2) |
 | [Day 6](https://adventofcode.com/2024/day/6) | :x: | :x: |
 | [Day 7](https://adventofcode.com/2024/day/7) | :x: | :x: |
 | [Day 8](https://adventofcode.com/2024/day/8) | :x: | :x: |
