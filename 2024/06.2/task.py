@@ -37,6 +37,8 @@ def parseFile(fileContents: str) -> int:
     # Remove starting position
     guardPos.remove((start[0], start[1]))
 
+    # Speed up idea 1: store where the # are in an array and check whether the blocker would just overflow, then don't continue
+
     def doesGuardLoop(blocker):
         seenLocations = set([start])
         currentPos = start
