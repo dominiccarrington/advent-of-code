@@ -1,10 +1,11 @@
 # https://adventofcode.com/2024/day/7
 import os
+from timeit import timeit
 
 operations = [
     lambda a, b: a + b,
     lambda a, b: a * b,
-    lambda a, b: int(str(a) + str(b))
+    lambda a, b: a * 10**(int(b / 10) + 1) + b
 ]
 
 def parseLine(line: str) -> int:
@@ -33,4 +34,5 @@ def main():
         print(parseFile(f.read().strip()))
 
 if __name__ == "__main__":
-    main()
+    time = timeit(main, 'gc.enable()', number=1)
+    print(f"Time Taken: {time} secs")
