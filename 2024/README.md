@@ -11,7 +11,7 @@
 | [Day 5: Print Queue](https://adventofcode.com/2024/day/5) | :heavy_check_mark: [(link)](/2024/05.1) | :heavy_check_mark: [(link)](/2024/05.2) |
 | [Day 6: Guard Gallivant](https://adventofcode.com/2024/day/6) | :heavy_check_mark: [(link)](/2024/06.1) | :heavy_check_mark: [(link)](/2024/06.2) |
 | [Day 7: Bridge Repair](https://adventofcode.com/2024/day/7) | :heavy_check_mark: [(link)](/2024/07.1) | :heavy_check_mark: [(link)](/2024/07.2) |
-| [Day 8](https://adventofcode.com/2024/day/8) | :x: | :x: |
+| [Day 8: Resonant Collinearity](https://adventofcode.com/2024/day/8) | :heavy_check_mark: [(link)](/2024/08.1) | :heavy_check_mark: [(link)](/2024/08.2) |
 | [Day 9](https://adventofcode.com/2024/day/9) | :x: | :x: |
 | [Day 10](https://adventofcode.com/2024/day/10) | :x: | :x: |
 | [Day 11](https://adventofcode.com/2024/day/11) | :x: | :x: |
